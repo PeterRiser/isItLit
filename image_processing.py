@@ -10,6 +10,11 @@ class DataParser:
         self.odapi = odapi
         self.model_path = model_path
 
+    def grab_image(self):
+        ret, frame = awscam.getLastFrame()
+        ret, jpeg = cv2.imencode('.jpg', frame)
+        return ret, jpeg
+
     def count_people(self):
         total_people = 0
         r, img = grab_image()
@@ -20,6 +25,7 @@ class DataParser:
             # Class 1 represents human
             if classes[i] == 1 and scores[i] > threshold:
                 total_people += 1
+
                 # Visualization of the results of a detection.
                 # box = boxes[i]
                 # cv2.rectangle(img, (box[1], box[0]), (box[3], box[2]), (255, 0, 0), 2)
@@ -29,19 +35,14 @@ class DataParser:
         if people > 15:
             return "Its lit"
         elif people > 10:
-        return "Its kinda lit"
-    elif people > 5:
-        return "its happening I guess"
-    else:
-        return "def not lit yo"
-
-    def grab_image(self):
-        ret, frame = awscam.getLastFrame()
-        ret, jpeg = cv2.imencode('.jpg', frame)
-        return ret, jpeg
+            return "Its kinda lit"
+        elif people > 5:
+            return "its happening I guess"
+        else:
+            return "def not lit yo"
 
 
 if __name__ == "__main__":
-    odapi = DataParser(MODEL_PATH)
+    odapi = DetectorAPI(MODEL_PATH)
     dp = DataParser(odapi, MODEL_PATH)
     return dp.count_people()
