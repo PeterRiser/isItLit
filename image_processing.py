@@ -1,4 +1,5 @@
 #import cv2
+import awscam
 from tensorflow-human-detection import DetectorAPI
 
 THRESHOLD = 0.7
