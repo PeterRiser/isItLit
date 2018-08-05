@@ -11,6 +11,7 @@ mock==2.0.0
 numpy==1.15.0
 opencv-python==3.4.2.17
 pbr==4.2.0
+pkg-resources==0.0.0
 protobuf==3.6.0
 six==1.11.0
 tensorboard==1.9.0
